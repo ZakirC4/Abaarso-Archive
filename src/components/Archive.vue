@@ -19,7 +19,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import FileUpload from './FileUpload.vue'; // Import the FileUpload component
+import FileUpload from './FileUpload.vue';
 
 const items = ref([
   { name: 'Ikemen', url: 'https://drive.google.com/uc?id=1BPki8gm-Z1aBLmQ1uhKWjjmvspAd27Ek', category: 'Games' },
