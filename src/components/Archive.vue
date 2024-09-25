@@ -1,10 +1,10 @@
 <template>
   <div class="archive">
-    <h2 style="color: black !important;">Available Files</h2>
+    <h2 class="archive-title">Available Files</h2>
     
     <FileUpload @file-added="addFile" />
 
-    <label for="category-select" style="color: #333 !important;">Select Category:</label>
+    <label for="category-select" class="category-label">Select Category:</label>
     <select id="category-select" v-model="selectedCategory">
       <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
     </select>
@@ -41,7 +41,6 @@ const filteredItems = computed(() => {
   return items.value.filter(item => item.category === selectedCategory.value);
 });
 
-// Add a new file to the items list
 const addFile = (newFile) => {
   items.value.push(newFile);
 };
@@ -60,6 +59,10 @@ const downloadFile = (url) => {
 <style scoped>
 .archive {
   margin: 20px 0;
+}
+
+.archive-title {
+  color: black;
 }
 
 .inner-boxes {
@@ -82,9 +85,9 @@ const downloadFile = (url) => {
   background-color: #218838;
 }
 
-label {
+.category-label {
+  color: #333;
   margin-bottom: 10px;
   display: block;
 }
-
 </style>
