@@ -85,6 +85,7 @@ const addFile = () => {
 .file-upload {
   margin: 20px;
   font-family: 'Arial', sans-serif;
+  max-width: 600px; /* Set a max width for better layout */
 }
 
 .upload-button {
@@ -92,9 +93,11 @@ const addFile = () => {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px; /* Rounded corners */
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 100%; /* Full width button */
+  font-size: 1rem;
 }
 
 .upload-button:hover {
@@ -105,6 +108,8 @@ const addFile = () => {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 500px; /* Set a max width for dialog */
+  width: 100%; /* Full width dialog */
 }
 
 .file-list {
@@ -116,7 +121,7 @@ const addFile = () => {
   border: 1px solid #cce0ff;
   padding: 12px;
   margin: 5px 0;
-  border-radius: 5px;
+  border-radius: 8px; /* Rounded corners for file items */
   transition: transform 0.2s;
 }
 
@@ -126,7 +131,7 @@ const addFile = () => {
 
 .button-group {
   display: flex;
-  gap: 10px;
+  justify-content: space-between; /* Space out buttons */
   margin-top: 15px;
 }
 
@@ -134,9 +139,11 @@ const addFile = () => {
 .cancel-button {
   padding: 10px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px; /* Rounded corners */
   cursor: pointer;
   transition: background-color 0.3s;
+  flex: 1; /* Equal button sizes */
+  margin: 0 5px; /* Spacing between buttons */
 }
 
 .submit-button {
@@ -166,9 +173,10 @@ label {
 input,
 select {
   width: 100%;
-  padding: 10px;
+  padding: 12px; /* Increased padding for inputs */
   margin-top: 5px;
   border: 1px solid #ced4da;
-  border-radius: 5px;
+  border-radius: 8px; /* Rounded corners for inputs */
+  font-size: 1rem; /* Increased font size */
 }
 </style>
