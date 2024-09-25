@@ -18,10 +18,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import FileUpload from './FileUpload.vue';
 
-const items = ref([
+const items = ref(JSON.parse(localStorage.getItem('items')) || [
   { name: 'Ikemen', url: 'https://drive.google.com/uc?id=1BPki8gm-Z1aBLmQ1uhKWjjmvspAd27Ek', category: 'Games' },
   { name: '7zip', url: 'https://drive.google.com/uc?id=1JQfGJk312EXb8Ruad3TLE8rP58LLI4A6', category: 'Utility' },
   { name: 'TLauncher', url: 'https://drive.google.com/uc?id=1nSbGAwb9cp3hB77eV2Elk9n5_mgFrF_G', category: 'Games' },
@@ -29,10 +29,7 @@ const items = ref([
 
 const selectedCategory = ref('All');
 
-const categories = computed(() => {
-  const uniqueCategories = new Set(items.value.map(item => item.category));
-  return ['All', ...uniqueCategories];
-});
+const categories = ['All', 'Games', 'Utility', 'Documents', 'Music', 'Videos', 'Images', 'Books', 'Software'];
 
 const filteredItems = computed(() => {
   return selectedCategory.value === 'All' 
@@ -40,7 +37,15 @@ const filteredItems = computed(() => {
     : items.value.filter(item => item.category === selectedCategory.value);
 });
 
+watch(items, (newItems) => {
+  localStorage.setItem('items', JSON.stringify(newItems));
+}, { deep: true });
+
 const addFile = (newFile) => {
+  if (items.value.some(item => item.name === newFile.name)) {
+    alert("An item with this name already exists.");
+    return;
+  }
   items.value.push(newFile);
 };
 

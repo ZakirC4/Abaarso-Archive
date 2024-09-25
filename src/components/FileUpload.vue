@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, emit } from 'vue';
 
 const files = ref([]);
 const fileName = ref('');
@@ -61,18 +61,16 @@ const resetForm = () => {
 };
 
 const addFile = () => {
-  files.value.push({
+  if (!fileName.value || !fileUrl.value || !fileCategory.value) return;
+  
+  const newFile = {
     name: fileName.value,
     url: fileUrl.value,
     category: fileCategory.value,
-  });
+  };
+
+  emit('file-added', newFile);
   closeDialog();
-  // Emit the new file to the parent component
-  emit('file-added', {
-    name: fileName.value,
-    url: fileUrl.value,
-    category: fileCategory.value,
-  });
 };
 </script>
 
