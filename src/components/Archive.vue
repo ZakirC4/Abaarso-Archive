@@ -1,5 +1,25 @@
+<template>
+  <div class="archive">
+    <h2>Available Files</h2>
+    
+    <FileUpload @file-added="addFile" />
+
+    <label for="category-select">Select Category:</label>
+    <select id="category-select" v-model="selectedCategory">
+      <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+    </select>
+    
+    <div class="inner-boxes">
+      <div v-for="item in filteredItems" :key="item.name" class="inner-box" @click="downloadFile(item.url)">
+        {{ item.name }}
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { ref, computed } from 'vue';
+import FileUpload from './FileUpload.vue'; // Import the FileUpload component
 
 const items = ref([
   { name: 'Ikemen', url: 'https://drive.google.com/uc?id=1BPki8gm-Z1aBLmQ1uhKWjjmvspAd27Ek', category: 'Games' },
@@ -21,6 +41,11 @@ const filteredItems = computed(() => {
   return items.value.filter(item => item.category === selectedCategory.value);
 });
 
+// Add a new file to the items list
+const addFile = (newFile) => {
+  items.value.push(newFile);
+};
+
 const downloadFile = (url) => {
   console.log('Downloading file from:', url);
   const link = document.createElement('a');
@@ -31,23 +56,6 @@ const downloadFile = (url) => {
   document.body.removeChild(link);
 };
 </script>
-
-<template>
-  <div class="archive">
-    <h2>Available Files</h2>
-    
-    <label for="category-select">Select Category:</label>
-    <select id="category-select" v-model="selectedCategory">
-      <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
-    </select>
-    
-    <div class="inner-boxes">
-      <div v-for="item in filteredItems" :key="item.name" class="inner-box" @click="downloadFile(item.url)">
-        {{ item.name }}
-      </div>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .archive {
