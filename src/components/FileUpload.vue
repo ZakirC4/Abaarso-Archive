@@ -36,30 +36,34 @@
 <script setup>
 import { ref, defineProps, emit } from 'vue';
 
+// Define props to receive categories
+const props = defineProps(['categories']);
+
 const files = ref([]);
 const fileName = ref('');
 const fileUrl = ref('');
 const fileCategory = ref('');
 const dialog = ref(null);
 
-// Receive categories from props
-const props = defineProps(['categories']);
-
+// Open the dialog
 const openDialog = () => {
   dialog.value.showModal();
 };
 
+// Close the dialog and reset the form
 const closeDialog = () => {
   dialog.value.close();
   resetForm();
 };
 
+// Reset form fields
 const resetForm = () => {
   fileName.value = '';
   fileUrl.value = '';
   fileCategory.value = props.categories[0];
 };
 
+// Emit the new file to the parent component
 const addFile = () => {
   if (!fileName.value || !fileUrl.value || !fileCategory.value) return;
   
