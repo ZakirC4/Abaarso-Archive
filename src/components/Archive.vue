@@ -85,5 +85,11 @@ const downloadFile = (url) => {
 label {
   margin-bottom: 10px;
   display: block;
+  color: black;
 }
+
+h2 {
+  color: black;
+}
+
 </style>

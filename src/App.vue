@@ -14,7 +14,7 @@ import Archive from './components/Archive.vue';
   border: 2px solid #007BFF;
   padding: 20px;
   border-radius: 8px;
-  background-color: black;
+  background-color: #f9f9f9;
   margin: 20px;
 }
 </style>
