@@ -34,10 +34,13 @@
 </template>
 
 <script setup>
-import { ref, defineProps, emit } from 'vue';
+import { ref, defineProps, defineEmits } from 'vue';
 
 // Define props to receive categories
 const props = defineProps(['categories']);
+
+// Define emits to send events to the parent
+const emit = defineEmits(['file-added']);
 
 const files = ref([]);
 const fileName = ref('');
@@ -66,7 +69,7 @@ const resetForm = () => {
 // Emit the new file to the parent component
 const addFile = () => {
   if (!fileName.value || !fileUrl.value || !fileCategory.value) return;
-  
+
   const newFile = {
     name: fileName.value,
     url: fileUrl.value,
