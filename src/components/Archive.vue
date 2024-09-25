@@ -1,11 +1,25 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const items = ref([
-  { name: 'Ikemen', url: 'https://drive.google.com/uc?id=1BPki8gm-Z1aBLmQ1uhKWjjmvspAd27Ek' },
-  { name: '7zip', url: 'https://drive.google.com/uc?id=1JQfGJk312EXb8Ruad3TLE8rP58LLI4A6' },
-  { name: 'TLauncher', url: 'https://drive.google.com/uc?id=1nSbGAwb9cp3hB77eV2Elk9n5_mgFrF_G' },
+  { name: 'Ikemen', url: 'https://drive.google.com/uc?id=1BPki8gm-Z1aBLmQ1uhKWjjmvspAd27Ek', category: 'Games' },
+  { name: '7zip', url: 'https://drive.google.com/uc?id=1JQfGJk312EXb8Ruad3TLE8rP58LLI4A6', category: 'Utility' },
+  { name: 'TLauncher', url: 'https://drive.google.com/uc?id=1nSbGAwb9cp3hB77eV2Elk9n5_mgFrF_G', category: 'Games' },
 ]);
+
+const selectedCategory = ref('All');
+
+const categories = computed(() => {
+  const uniqueCategories = new Set(items.value.map(item => item.category));
+  return ['All', ...uniqueCategories];
+});
+
+const filteredItems = computed(() => {
+  if (selectedCategory.value === 'All') {
+    return items.value;
+  }
+  return items.value.filter(item => item.category === selectedCategory.value);
+});
 
 const downloadFile = (url) => {
   console.log('Downloading file from:', url);
@@ -21,8 +35,14 @@ const downloadFile = (url) => {
 <template>
   <div class="archive">
     <h2>Available Files</h2>
+    
+    <label for="category-select">Select Category:</label>
+    <select id="category-select" v-model="selectedCategory">
+      <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+    </select>
+    
     <div class="inner-boxes">
-      <div v-for="item in items" :key="item.name" class="inner-box" @click="downloadFile(item.url)">
+      <div v-for="item in filteredItems" :key="item.name" class="inner-box" @click="downloadFile(item.url)">
         {{ item.name }}
       </div>
     </div>
@@ -52,5 +72,10 @@ const downloadFile = (url) => {
 
 .inner-box:hover {
   background-color: #218838;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
 }
 </style>
