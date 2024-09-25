@@ -1,10 +1,10 @@
 <template>
   <div class="archive">
-    <h2 style="color: black;">Available Files</h2>
+    <h2 style="color: black !important;">Available Files</h2>
     
     <FileUpload @file-added="addFile" />
 
-    <label for="category-select" style="color: #333;">Select Category:</label>
+    <label for="category-select" style="color: #333 !important;">Select Category:</label>
     <select id="category-select" v-model="selectedCategory">
       <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
     </select>
