@@ -1,14 +1,14 @@
 <template>
   <div class="archive">
     <h2 class="archive-title">Available Files</h2>
-    
-    <FileUpload @file-added="addFile" />
+
+    <FileUpload @file-added="addFile" :categories="categories" />
 
     <label for="category-select" class="category-label">Select Category:</label>
     <select id="category-select" v-model="selectedCategory">
       <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
     </select>
-    
+
     <div class="inner-boxes">
       <div v-for="item in filteredItems" :key="item.name" class="inner-box" @click="downloadFile(item.url)">
         {{ item.name }}
@@ -35,10 +35,9 @@ const categories = computed(() => {
 });
 
 const filteredItems = computed(() => {
-  if (selectedCategory.value === 'All') {
-    return items.value;
-  }
-  return items.value.filter(item => item.category === selectedCategory.value);
+  return selectedCategory.value === 'All' 
+    ? items.value 
+    : items.value.filter(item => item.category === selectedCategory.value);
 });
 
 const addFile = (newFile) => {
@@ -46,7 +45,6 @@ const addFile = (newFile) => {
 };
 
 const downloadFile = (url) => {
-  console.log('Downloading file from:', url);
   const link = document.createElement('a');
   link.href = url;
   link.download = url.split('/').pop();
@@ -90,7 +88,6 @@ select {
 
 select:focus {
   border-color: #007bff;
-  outline: none;
 }
 
 .inner-boxes {
@@ -106,7 +103,6 @@ select:focus {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .inner-box:hover {

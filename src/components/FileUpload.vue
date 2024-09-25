@@ -1,11 +1,11 @@
 <template>
   <div class="file-upload">
     <button class="upload-button" @click="openDialog">Upload File</button>
-    
+
     <dialog ref="dialog" class="dialog">
       <form @submit.prevent="addFile">
         <h3>Upload a New File</h3>
-        
+
         <label for="file-name">File Name:</label>
         <input type="text" v-model="fileName" id="file-name" required />
 
@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
 
 const files = ref([]);
 const fileName = ref('');
@@ -42,28 +42,24 @@ const fileUrl = ref('');
 const fileCategory = ref('');
 const dialog = ref(null);
 
-// Define available categories
-const categories = ['Games', 'Utility', 'Documents', 'Music', 'Videos'];
+// Receive categories from props
+const props = defineProps(['categories']);
 
-// Open the dialog
 const openDialog = () => {
   dialog.value.showModal();
 };
 
-// Close the dialog
 const closeDialog = () => {
   dialog.value.close();
   resetForm();
 };
 
-// Reset form fields
 const resetForm = () => {
   fileName.value = '';
   fileUrl.value = '';
-  fileCategory.value = categories[0];
+  fileCategory.value = props.categories[0];
 };
 
-// Add new file
 const addFile = () => {
   files.value.push({
     name: fileName.value,
@@ -71,6 +67,12 @@ const addFile = () => {
     category: fileCategory.value,
   });
   closeDialog();
+  // Emit the new file to the parent component
+  emit('file-added', {
+    name: fileName.value,
+    url: fileUrl.value,
+    category: fileCategory.value,
+  });
 };
 </script>
 
@@ -123,14 +125,18 @@ const addFile = () => {
   margin-top: 15px;
 }
 
-.submit-button {
+.submit-button,
+.cancel-button {
   padding: 10px 15px;
-  background-color: #28a745;
-  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.submit-button {
+  background-color: #28a745;
+  color: white;
 }
 
 .submit-button:hover {
@@ -138,13 +144,8 @@ const addFile = () => {
 }
 
 .cancel-button {
-  padding: 10px 15px;
   background-color: #dc3545;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .cancel-button:hover {
@@ -157,7 +158,8 @@ label {
   font-weight: bold;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
