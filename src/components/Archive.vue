@@ -58,36 +58,63 @@ const downloadFile = (url) => {
 
 <style scoped>
 .archive {
-  margin: 20px 0;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .archive-title {
-  color: black;
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.category-label {
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+select:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 .inner-boxes {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
 }
 
 .inner-box {
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   padding: 15px;
   margin: 5px 0;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .inner-box:hover {
-  background-color: #218838;
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
-.category-label {
-  color: #333;
-  margin-bottom: 10px;
-  display: block;
+.inner-box:active {
+  transform: translateY(0);
 }
 </style>
