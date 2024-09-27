@@ -25,6 +25,7 @@ const items = ref(JSON.parse(localStorage.getItem('items')) || [
   { name: 'Ikemen', url: 'https://drive.google.com/uc?id=1BPki8gm-Z1aBLmQ1uhKWjjmvspAd27Ek', category: 'Games' },
   { name: '7zip', url: 'https://drive.google.com/uc?id=1JQfGJk312EXb8Ruad3TLE8rP58LLI4A6', category: 'Utility' },
   { name: 'TLauncher', url: 'https://drive.google.com/uc?id=1nSbGAwb9cp3hB77eV2Elk9n5_mgFrF_G', category: 'Games' },
+  { name: 'PaperMCSetup', url: 'https://drive.google.com/uc?id=1Ka510p-mleA7l_vWAlbsNP-LBhvRLwOp', category: 'Utility' },
 ]);
 
 const selectedCategory = ref('All');
